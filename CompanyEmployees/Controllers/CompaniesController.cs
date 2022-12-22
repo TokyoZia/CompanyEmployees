@@ -2,6 +2,7 @@
 using Contracts;
 using Entities.DataTransferObjects;
 using LoggerService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyEmployees.Controllers
@@ -19,7 +20,7 @@ namespace CompanyEmployees.Controllers
             _logger = logger;
             _mapper = mapper;
         }
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Manager")]
         public IActionResult GetCompanies()
         {
                 var companies = _repository.Company.GetAllCompanies(trackChanges: false);

@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using CompanyEmployees.Extensions;
+using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using LoggerService;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
+using Repository;
 
 namespace CompanyEmployees;
 
@@ -31,6 +33,10 @@ public class Startup
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+        services.AddAuthentication();
+        services.ConfigureIdentity();
+        services.ConfigureJWT(Configuration);
+        services.AddScoped<IAuthenticationManager, AuthenticationManager>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +62,8 @@ ILoggerManager logger)
         app.UseRouting();
         app.UseAuthorization();
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        app.UseAuthentication();
+        app.UseAuthorization();
     }
 
     public class MappingProfile : Profile
@@ -65,6 +73,7 @@ ILoggerManager logger)
             CreateMap<Company, CompanyDto>().ForMember(c => c.FullAddress, opt => opt.MapFrom(x => string.Join(' ', x.Address, x.Country)));
             CreateMap<Player, PlayerDto>();
             CreateMap<Comand, ComandDto>();
+            CreateMap<UserForRegistrationDto, User>();
         }
     }
 }
