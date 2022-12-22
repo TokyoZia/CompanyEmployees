@@ -10,6 +10,7 @@ namespace CompanyEmployees.Controllers
 {
     [Route("api/comands")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class ComandssController : ControllerBase
     {
         private readonly IRepositoryManager _repository;

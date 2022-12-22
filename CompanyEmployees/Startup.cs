@@ -37,6 +37,7 @@ public class Startup
         services.ConfigureIdentity();
         services.ConfigureJWT(Configuration);
         services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+        services.ConfigureSwagger();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +65,12 @@ ILoggerManager logger)
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseSwagger();
+        app.UseSwaggerUI(s =>
+        {
+            s.SwaggerEndpoint("/swagger/v1/swagger.json", "Code Maze API v1");
+         
+        });
     }
 
     public class MappingProfile : Profile

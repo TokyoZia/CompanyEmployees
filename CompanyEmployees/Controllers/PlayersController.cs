@@ -10,6 +10,7 @@ namespace CompanyEmployees.Controllers
 {
     [Route("api/players")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class PlayersController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
