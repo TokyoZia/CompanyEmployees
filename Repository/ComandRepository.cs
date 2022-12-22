@@ -14,5 +14,15 @@ namespace Repository
         public ComandRepository(RepositoryContext repositoryContext): base(repositoryContext)
         {
         }
+
+        public void AnyMethodFromCompanyRepository()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Comand> GetAllComands(bool trackChanges) =>
+     FindAll(trackChanges)
+         .OrderBy(c => c.ComandName)
+         .ToList();
     }
 }

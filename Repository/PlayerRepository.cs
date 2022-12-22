@@ -14,5 +14,15 @@ namespace Repository
         public PlayerRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
+
+        public IEnumerable<Company> GetAllPlayers(bool trackChanges) =>
+      FindAll(trackChanges)
+          .OrderBy(c => c.Name)
+          .ToList();
+
+        public void AnyMethodFromCompanyRepository()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
