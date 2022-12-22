@@ -22,7 +22,7 @@ namespace CompanyEmployees.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public IActionResult GetShops()
+        public IActionResult GetPlayers()
         {
             var players = _repository.Player.GetAllPlayers(trackChanges: false);
             var playerDto = _mapper.Map<IEnumerable<ComandDto>>(players);
