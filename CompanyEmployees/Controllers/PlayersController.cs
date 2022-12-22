@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyEmployees.Controllers
 {
-    [Route("api/shops")]
+    [Route("api/players")]
     [ApiController]
-    public class ShopsController : ControllerBase
+    public class PlayersController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
-        public ShopsController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+        public PlayersController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
 
         {
             _repository = repository;
@@ -24,9 +24,9 @@ namespace CompanyEmployees.Controllers
         [HttpGet]
         public IActionResult GetShops()
         {
-            var shops = _repository.Shops.GetAllShops(trackChanges: false);
-            var shopsDto = _mapper.Map<IEnumerable<ComandDto>>(shops);
-            return Ok(shopsDto);
+            var players = _repository.Player.GetAllPlayers(trackChanges: false);
+            var playerDto = _mapper.Map<IEnumerable<ComandDto>>(players);
+            return Ok(playerDto);
         }
     }
 }

@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyEmployees.Controllers
 {
-    [Route("api/owners")]
+    [Route("api/comands")]
     [ApiController]
-    public class OwnersController : ControllerBase
+    public class ComandssController : ControllerBase
     {
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
         private readonly IMapper _mapper;
-        public OwnersController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+        public ComandssController(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
 
         {
             _repository = repository;
@@ -22,11 +22,11 @@ namespace CompanyEmployees.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public IActionResult GetOwners()
+        public IActionResult GetComands()
         {
-            var owners = _repository.Owner.GetAllOwners(trackChanges: false);
-            var ownersDto = _mapper.Map<IEnumerable<OwnerDto>>(owners);
-            return Ok(ownersDto);
+            var comand = _repository.Comand.GetAllComands(trackChanges: false);
+            var comandDto = _mapper.Map<IEnumerable<ComandDto>>(comand);
+            return Ok(comandDto);
         }
     }
 }
