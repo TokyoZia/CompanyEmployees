@@ -15,9 +15,9 @@ namespace Repository
         {
         }
 
-        public IEnumerable<Company> GetAllPlayers(bool trackChanges) =>
+        public IEnumerable<Player> GetAllPlayers(bool trackChanges) =>
       FindAll(trackChanges)
-          .OrderBy(c => c.Name)
+          .OrderBy(c => c.PlayerName)
           .ToList();
 
         public void AnyMethodFromCompanyRepository()
