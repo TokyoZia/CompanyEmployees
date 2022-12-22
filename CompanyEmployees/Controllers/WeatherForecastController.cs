@@ -1,33 +1,23 @@
+using Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyEmployees.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
+    [ApiController]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        private readonly IRepositoryManager _repository;
+        public WeatherForecastController(IRepositoryManager repository)
         {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
+            _repository = repository;
         }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+ [HttpGet]
+        public ActionResult<IEnumerable<string>> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            _repository.Company.AnyMethodFromCompanyRepository();
+            _repository.Employee.AnyMethodFromEmployeeRepository();
+            return new string[] { "value1", "value2" };
         }
     }
 }
