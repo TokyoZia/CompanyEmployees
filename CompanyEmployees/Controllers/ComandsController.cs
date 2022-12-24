@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyEmployees.Controllers
 {
-    [Route("api/comands")]
+    [ApiVersion("1.0")]
+    [Route("api/{v:apiversion}/comands")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
     public class ComandssController : ControllerBase
@@ -24,11 +25,19 @@ namespace CompanyEmployees.Controllers
             _mapper = mapper;
         }
         [HttpGet, Authorize(Roles = "Manager")]
+        [HttpHead]
         public IActionResult GetComands()
         {
             var comand = _repository.Comand.GetAllComands(trackChanges: false);
             var comandDto = _mapper.Map<IEnumerable<ComandDto>>(comand);
             return Ok(comandDto);
+        }
+
+        [HttpOptions]
+        public IActionResult GetComandsOptions()
+        {
+            Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+            return Ok();
         }
     }
 }

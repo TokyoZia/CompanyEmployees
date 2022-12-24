@@ -33,6 +33,7 @@ public class Startup
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+        services.ConfigureVersioning();
         services.AddAuthentication();
         services.ConfigureIdentity();
         services.ConfigureJWT(Configuration);
